@@ -101,6 +101,7 @@ PERSONA_ACK = "haha okay got it, staying in character! whats up"
 
 
 @router.post("/chat/completions")
+@router.post("/v1/chat/completions")
 async def openai_compatible_chat_completions(request: Request):
     """
     OpenAI-compatible endpoint required by the Masquerade '26 judging system.

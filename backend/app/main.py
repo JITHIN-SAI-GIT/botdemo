@@ -31,10 +31,15 @@ app = FastAPI(
 )
 
 # Configure CORS
+# allow_origins is wide open here on purpose: this app doesn't use cookie-based
+# auth (no withCredentials anywhere in the frontend), so there's no security
+# downside, and it means any OpenAI-compatible testing tool (Chatbox, judges'
+# own client, etc.) can hit /chat/completions from a browser without CORS
+# preflight failures - which is exactly what happened before this change.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
